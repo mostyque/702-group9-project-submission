@@ -10,8 +10,8 @@ does greater technological access shape women's participation in STEM within the
 
 WITH agg AS ( 
   SELECT CountryCode, TimeID,  
-         AVG(FemaleEnrolRate) AS avg_enrol, - Calculating average female enrol rate 
-         AVG(FemaleGradRate) AS avg_grad – Calculating average female graduation rate  
+         AVG(FemaleEnrolRate) AS avg_enrol, -- Calculating average female enrol rate 
+         AVG(FemaleGradRate) AS avg_grad -- Calculating average female graduation rate  
   FROM fact_representation 
   GROUP BY CountryCode, TimeID 
 ) -- This simplifies the dataset so downstream queries only require one row per country per year instead of one row per STEM Field. 
@@ -28,12 +28,11 @@ ROUND (AVG (agg.avg_grad) *100, 2)    AS AvgFemaleGrad -- Multiplies by 100 and 
 FROM agg 
 JOIN dim_country dc USING (CountryCode) -- Maps CountryCode to Name (India as 'IND')  
 JOIN dim_time    dt USING (TimeID) -- maps TimeID to Year (Year is 2005) 
-LEFT JOIN dim_scores 
+LEFT JOIN fact_representation s
        ON s.CountryCode = dc.CountryCode 
       AND s.TimeID      = dt.TimeID  -- LEFT JOIN ensures missing rows won't disrupt the function. 
-WHERE dc.CountryCode = 'IND' -- or 'USA',' AUS',' CAN', 'CHN', 'DEU', filter to one country at a time (e.g. 'IND'). 
 GROUP BY dc.CountryCode, dt.Year -- ensures one row per (Country,Year) in the final table. 
-ORDER BY dt.Year; -- arranges by year sequentially
+ORDER BY country, year; -- arranges by year sequentially
 
 
 ----------------------------------------------------------------------
@@ -120,6 +119,8 @@ FROM stats_enrol e
 JOIN stats_grad  g ON g.CountryName= e.CountryName
 ORDER BY e.CountryName;
 
+SELECT * FROM stats_enrol;
+SELECT * FROM stats_grad;
 
 ----------------------------------------------------------------------
 /*
@@ -133,6 +134,7 @@ SELECT dc.Continent Continent, dt.Year Year, f.Freedom, ROUND(AVG(f.FemaleEnrolR
 FROM fact_representation f -- from fact_representation, joined with dim_country and dim_time 
 JOIN dim_country dc USING(CountryCode) 
 JOIN dim_time dt USING(TimeID) 
-WHERE UPPER (dc.Continent) IN ('AMERICA',' ASIA') -- filtering by continent name (America and Asia),
+WHERE UPPER (dc.Continent) IN ('AMERICA','ASIA') -- filtering by continent name (America and Asia),
+	AND f.Freedom IS NOT NULL -- exclude any missing data
 GROUP BY Continent, Year -- grouping the results by Continent and Year
-ORDER BY f.TimeID; --ordering by year in chronological order. 
+ORDER BY Continent, Year; --ordering by year in chronological order. 
