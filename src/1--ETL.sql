@@ -16,8 +16,8 @@ CREATE TABLE stg_women_stem_raw (
   "Gender Gap Index" REAL
 );
 
--- import women_stem.csv into this table via DB Browser import function or execute the command below in SQLiteCLI
--- .import --csv --skip 1 women_stem.csv stg_women_stem_raw
+-- import stg_women_stem_raw.csv into this table via DB Browser import function or execute the command below in SQLiteCLI
+-- .import --csv --skip 1 stg_women_stem_raw.csv stg_women_stem_raw
 
 /* 2)	Creating a table for the World_Happiness Dataset */
 DROP TABLE IF EXISTS stg_world_happiness_raw;
@@ -35,8 +35,8 @@ CREATE TABLE stg_world_happiness_raw (
   "Negative affect"						REAL
 );
  
--- import world_happiness.csv into this table via DB Browser import function or execute the command below in SQLiteCLI
--- .import --csv --skip 1 world_happiness.csv stg_world_happiness_raw
+-- import stg_world_happiness_raw.csv into this table via DB Browser import function or execute the command below in SQLiteCLI
+-- .import --csv --skip 1 stg_world_happiness_raw.csv stg_world_happiness_raw
 
 /* 3)	Creating a table for the Gender_Inequality_Index Dataset */
 DROP TABLE IF EXISTS stg_gender_inequality_raw;
@@ -83,8 +83,8 @@ CREATE TABLE stg_gender_inequality_raw (
   "Gender Inequality Index (2021)" REAL
   );
   
--- import gender_inequality.csv into this table via DB Browser import function or execute the command below in SQLiteCLI
--- .import --csv --skip 1 gender_inequality.csv stg_gender_inequality_raw
+-- import stg_gender_inequality_raw.csv into this table via DB Browser import function or execute the command below in SQLiteCLI
+-- .import --csv --skip 1 stg_gender_inequality_raw.csv stg_gender_inequality_raw
 
 /* 4)	Creating a table for the Internet_Usage Dataset */
 DROP TABLE IF EXISTS stg_internet_usage_raw;
@@ -95,8 +95,8 @@ CREATE TABLE stg_internet_usage_raw (
   "Individuals using the Internet (% of population)" REAL
 );
 
--- import internet_usage.csv into this table via DB Browser import function or execute the command below in SQLiteCLI
--- .import --csv --skip 1 internet_usage.csv stg_internet_usage_raw
+-- import stg_internet_usage_raw.csv into this table via DB Browser import function or execute the command below in SQLiteCLI
+-- .import --csv --skip 1 stg_internet_usage_raw.csv stg_internet_usage_raw
 
 
 /* Whitelist of 6 countries for the study */
